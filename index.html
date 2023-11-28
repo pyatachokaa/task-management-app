@@ -1,0 +1,91 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Task Management App</title>
+  <style>
+    .cont{
+      border: 1px solid black;
+    }
+    body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+
+.container {
+  max-width: 400px;
+  padding: 20px;
+  border: 1px solid black;
+  text-align: center;
+  background-color: yellow;
+}
+
+h1, h2 {
+  font-size: 24px;
+  background-color: yellow;
+  border: 1px solid black;
+}
+
+form {
+  padding: 20px;
+  margin-top: 20px;
+}
+
+input[type="text"], input[type="checkbox"], button[type="submit"] {
+  margin-bottom: 10px;
+}
+
+button[type="submit"] {
+  background-color: yellow;
+  color: black;
+  padding: 10px 20px;
+  border-radius: 4px;
+}
+
+.completed {
+  text-decoration: line-through;
+}
+
+.task-item {
+  margin-bottom: 8px;
+}
+  </style>
+  <script src="https://unpkg.com/vue@3.2.19/dist/vue.global.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>Task Management App</h1>
+    <div class="cont">
+    <form @submit.prevent="addTask">
+      <input type="text" v-model="newTaskTitle" placeholder="Task title" required>
+      <label>
+        <input type="checkbox" v-model="newTaskCompleted">
+        Completed
+      </label>
+      <button type="submit">Add Task</button>
+    </form>
+  </div>
+    <h2>Task List</h2>
+    <div class="cont">
+    <div v-if="tasks.length === 0">No tasks available.</div>
+    <ul>
+      <li v-for="task in tasks" :key="task.id">
+        <input type="checkbox" v-model="task.completed" @change="updateCompletedTasksCount">
+        <span :class="{ completed: task.completed }">{{ task.title }}</span>
+      </li>
+    </ul>
+  </div>
+    <h2>Task Summary</h2>
+    <div class="cont">
+    <p>Total tasks: {{ tasks.length }}</p>
+    <p>Completed tasks: {{ completedTasks }}</p>
+    <p>Incomplete tasks: {{ incompleteTasks }}</p>
+  </div>
+</div>
+
+  <script src="app.js"></script>
+</body>
+</html>
